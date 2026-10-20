@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080d19">
-  <meta name="description" content="مشاريع وتجارب بيادر في شبكات الحاسب وتقنية المعلومات.">
-  <title>Bayader | Network Projects</title>
+  <meta name="description" content="مشاريع وتجارب عملية في شبكات الحاسب وتقنية المعلومات.">
+  <title>مختبر الشبكات | Network Lab</title>
 
   <style>
     :root {
@@ -32,8 +32,8 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: Arial, Tahoma, sans-serif;
-      line-height: 1.8;
+      font-family: Tahoma, Arial, sans-serif;
+      line-height: 1.9;
     }
 
     a {
@@ -41,14 +41,18 @@
       text-decoration: none;
     }
 
+    button {
+      font: inherit;
+    }
+
     .container {
       width: min(1080px, 90%);
-      margin: auto;
+      margin-inline: auto;
     }
 
     header {
-      border-bottom: 1px solid var(--border);
       background: #080d19;
+      border-bottom: 1px solid var(--border);
     }
 
     nav {
@@ -61,35 +65,43 @@
     }
 
     .logo {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: var(--blue);
+      letter-spacing: 0.3px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
-    .nav-links a,
-    .language-button {
+    .nav-links a {
       color: var(--muted);
-      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
     }
 
     .language-button {
-      border: 1px solid var(--border);
-      border-radius: 9px;
       background: var(--panel);
       color: var(--text);
-      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 6px 14px;
       cursor: pointer;
     }
 
+    .language-button:hover {
+      border-color: var(--blue);
+    }
+
     .hero {
-      padding: 100px 0 85px;
+      padding: 105px 0 90px;
       background:
         radial-gradient(ellipse at 80% 10%, #16345a 0, transparent 48%),
         var(--bg);
@@ -98,14 +110,14 @@
     .eyebrow {
       color: var(--cyan);
       font-size: 0.95rem;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     h1 {
-      font-size: clamp(2.3rem, 6vw, 4.5rem);
-      line-height: 1.25;
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      line-height: 1.45;
       max-width: 850px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     h1 span {
@@ -113,7 +125,7 @@
     }
 
     .hero-description {
-      max-width: 650px;
+      max-width: 680px;
       color: var(--muted);
       font-size: 1.08rem;
       margin-bottom: 30px;
@@ -123,37 +135,43 @@
       display: inline-block;
       background: var(--blue);
       color: #07101f;
-      padding: 11px 21px;
+      padding: 11px 22px;
       border-radius: 9px;
       font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .button:hover {
+      background: var(--cyan);
+      transform: translateY(-2px);
     }
 
     section {
       padding: 65px 0;
+      scroll-margin-top: 20px;
     }
 
     .section-heading {
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .section-heading h2 {
-      font-size: 2rem;
+      font-size: clamp(1.6rem, 4vw, 2rem);
       margin-bottom: 8px;
     }
 
-    .section-heading p,
-    .about-text {
+    .section-heading p {
       color: var(--muted);
     }
 
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 20px;
     }
 
     .project-card {
-      padding: 25px;
+      padding: 26px;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 15px;
@@ -166,19 +184,19 @@
     }
 
     .project-icon {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 1.9rem;
+      margin-bottom: 12px;
     }
 
     .project-card h3 {
-      margin-bottom: 10px;
       font-size: 1.15rem;
+      margin-bottom: 10px;
     }
 
     .project-card p {
       color: var(--muted);
       font-size: 0.95rem;
-      margin-bottom: 17px;
+      margin-bottom: 18px;
     }
 
     .tag {
@@ -186,20 +204,13 @@
       border: 1px solid #31527b;
       color: var(--cyan);
       border-radius: 20px;
-      padding: 3px 10px;
-      font-size: 0.8rem;
-    }
-
-    .about-panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 30px;
+      padding: 3px 11px;
+      font-size: 0.82rem;
     }
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 25px 0;
+      padding: 24px 0;
       color: var(--muted);
       text-align: center;
       font-size: 0.9rem;
@@ -211,19 +222,23 @@
 
     @media (max-width: 600px) {
       nav {
-        padding: 16px 0;
+        padding: 15px 0;
       }
 
       .nav-links {
-        gap: 12px;
+        gap: 14px;
       }
 
       .hero {
-        padding: 70px 0 55px;
+        padding: 70px 0 60px;
       }
 
       section {
         padding: 45px 0;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -232,14 +247,18 @@
 <body>
   <header>
     <nav class="container">
-      <a class="logo" href="#home">Bayader<span>.</span></a>
+      <a class="logo" href="#home"
+         data-ar="مختبر الشبكات" data-en="Network Lab">
+        مختبر الشبكات
+      </a>
 
       <div class="nav-links">
         <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
         <a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a>
-        <a href="#about" data-ar="عني" data-en="About">عني</a>
         <button class="language-button" id="languageToggle"
-          type="button" aria-label="Change language">EN</button>
+                type="button" aria-label="تغيير لغة الموقع">
+          English
+        </button>
       </div>
     </nav>
   </header>
@@ -248,26 +267,32 @@
     <section class="hero" id="home">
       <div class="container">
         <p class="eyebrow"
-          data-ar="ملف أعمال • شبكات الحاسب"
-          data-en="PORTFOLIO • COMPUTER NETWORKING">
-          ملف أعمال • شبكات الحاسب
+           data-ar="مشاريع عملية • شبكات الحاسب"
+           data-en="PRACTICAL PROJECTS • COMPUTER NETWORKING">
+          مشاريع عملية • شبكات الحاسب
         </p>
 
         <h1>
-          <span data-ar="أبني." data-en="Building.">أبني.</span>
-          <span data-ar="أتعلم." data-en="Learning.">أتعلم.</span>
-          <span data-ar="أربط العالم." data-en="Connecting.">أربط العالم.</span>
+          <span data-ar="تصميم الشبكات." data-en="Design networks.">
+            تصميم الشبكات.
+          </span>
+          <br>
+          <span data-ar="فهم الاتصال." data-en="Understand connectivity.">
+            فهم الاتصال.
+          </span>
         </h1>
 
         <p class="hero-description"
-          data-ar="مساحة لعرض مشاريعي وتجربتي في شبكات الحاسب، وتوثيق المختبرات العملية والإعدادات التي أتعلمها خطوة بخطوة."
-          data-en="A portfolio of my computer networking projects, practical labs, and configurations as I learn and grow.">
-          مساحة لعرض مشاريعي وتجربتي في شبكات الحاسب، وتوثيق المختبرات العملية والإعدادات التي أتعلمها خطوة بخطوة.
+           data-ar="منصة لعرض مشاريع شبكات الحاسب والتجارب العملية، وتوثيق إعدادات الأجهزة وبروتوكولات الاتصال وخطوات استكشاف أخطاء الشبكات وإصلاحها."
+           data-en="A collection of computer networking projects and practical labs, documenting device configurations, communication protocols, and network troubleshooting.">
+          منصة لعرض مشاريع شبكات الحاسب والتجارب العملية، وتوثيق إعدادات الأجهزة وبروتوكولات الاتصال وخطوات استكشاف أخطاء الشبكات وإصلاحها.
         </p>
 
         <a class="button" href="#projects"
-          data-ar="استكشف المشاريع ←"
-          data-en="Explore projects →">استكشف المشاريع ←</a>
+           data-ar="تصفّح المشاريع ←"
+           data-en="Explore projects →">
+          تصفّح المشاريع ←
+        </a>
       </div>
     </section>
 
@@ -277,75 +302,75 @@
           <h2 data-ar="مشاريع الشبكات" data-en="Networking Projects">
             مشاريع الشبكات
           </h2>
-          <p data-ar="تجارب عملية ومشاريع سأضيفها مع تطور مهاراتي."
-             data-en="Hands-on labs and projects I'll add as my skills grow.">
-            تجارب عملية ومشاريع سأضيفها مع تطور مهاراتي.
+
+          <p
+            data-ar="مجالات تطبيقية لتعلّم تقنيات الشبكات وتوثيق التجارب العملية."
+            data-en="Practical areas for learning networking technologies and documenting lab work.">
+            مجالات تطبيقية لتعلّم تقنيات الشبكات وتوثيق التجارب العملية.
           </p>
         </div>
 
         <div class="project-grid">
           <article class="project-card">
             <div class="project-icon" aria-hidden="true">🌐</div>
-            <h3 data-ar="تصميم الشبكات" data-en="Network Design">
-              تصميم الشبكات
+
+            <h3 data-ar="تصميم الشبكات ومحاكاتها"
+                data-en="Network Design & Simulation">
+              تصميم الشبكات ومحاكاتها
             </h3>
-            <p data-ar="تصميم شبكات افتراضية وربط الحواسيب والسويتشات والراوترات باستخدام Packet Tracer."
-               data-en="Designing virtual networks and connecting PCs, switches, and routers with Packet Tracer.">
-              تصميم شبكات افتراضية وربط الحواسيب والسويتشات والراوترات باستخدام Packet Tracer.
+
+            <p
+              data-ar="إنشاء مخططات شبكية افتراضية، وربط الحواسيب والمبدّلات والموجّهات، واختبار الاتصال باستخدام Cisco Packet Tracer."
+              data-en="Build virtual network topologies, connect PCs, switches, and routers, and test connectivity using Cisco Packet Tracer.">
+              إنشاء مخططات شبكية افتراضية، وربط الحواسيب والمبدّلات والموجّهات، واختبار الاتصال باستخدام Cisco Packet Tracer.
             </p>
+
             <span class="tag">Cisco Packet Tracer</span>
           </article>
 
           <article class="project-card">
             <div class="project-icon" aria-hidden="true">⚙️</div>
-            <h3 data-ar="إعداد الراوترات" data-en="Router Configuration">
-              إعداد الراوترات
+
+            <h3 data-ar="إعداد الموجّهات والتوجيه"
+                data-en="Router Configuration & Routing">
+              إعداد الموجّهات والتوجيه
             </h3>
-            <p data-ar="توثيق أوامر الإعداد الأساسية وعناوين IP والتوجيه مع أمثلة عملية."
-               data-en="Documenting basic commands, IP addressing, and routing with practical examples.">
-              توثيق أوامر الإعداد الأساسية وعناوين IP والتوجيه مع أمثلة عملية.
+
+            <p
+              data-ar="تطبيق إعدادات الأجهزة، وتوزيع عناوين IP، وضبط المسارات، والتحقق من وصول البيانات بين الشبكات."
+              data-en="Configure network devices, assign IP addresses, set routes, and verify communication between networks.">
+              تطبيق إعدادات الأجهزة، وتوزيع عناوين IP، وضبط المسارات، والتحقق من وصول البيانات بين الشبكات.
             </p>
-            <span class="tag">Routing</span>
+
+            <span class="tag">Routing & Switching</span>
           </article>
 
           <article class="project-card">
             <div class="project-icon" aria-hidden="true">🔎</div>
-            <h3 data-ar="استكشاف الأخطاء" data-en="Troubleshooting">
-              استكشاف الأخطاء
+
+            <h3 data-ar="تشخيص أعطال الشبكات"
+                data-en="Network Troubleshooting">
+              تشخيص أعطال الشبكات
             </h3>
-            <p data-ar="تسجيل مشكلات الاتصال الشائعة وخطوات فحص الشبكة وحلولها."
-               data-en="Recording common connectivity issues, network checks, and solutions.">
-              تسجيل مشكلات الاتصال الشائعة وخطوات فحص الشبكة وحلولها.
+
+            <p
+              data-ar="فحص الاتصال، وتحليل أسباب انقطاع الشبكة، واستخدام أدوات وأوامر التشخيص للوصول إلى الحل المناسب."
+              data-en="Check connectivity, identify network failures, and use diagnostic tools and commands to find suitable solutions.">
+              فحص الاتصال، وتحليل أسباب انقطاع الشبكة، واستخدام أدوات وأوامر التشخيص للوصول إلى الحل المناسب.
             </p>
+
             <span class="tag">Network Support</span>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container">
-        <div class="section-heading">
-          <h2 data-ar="عني" data-en="About Me">عني</h2>
-        </div>
-
-        <div class="about-panel">
-          <p class="about-text"
-            data-ar="أنا بيادر، أدرس تقنية شبكات الحاسب. أنشأت هذا الموقع لتوثيق رحلتي التعليمية ومشاريعي العملية في الشبكات وتقنية المعلومات. سأضيف الأعمال بعد تنفيذها والتحقق منها."
-            data-en="I'm Bayader, a Computer Networks Technology student. I created this website to document my learning journey and practical work in networking and IT. Projects will be added as I complete and verify them.">
-            أنا بيادر، أدرس تقنية شبكات الحاسب. أنشأت هذا الموقع لتوثيق رحلتي التعليمية ومشاريعي العملية في الشبكات وتقنية المعلومات. سأضيف الأعمال بعد تنفيذها والتحقق منها.
-          </p>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container">
-      © <span id="year"></span> Bayader ·
-      <span data-ar="مشاريع شبكات الحاسب" data-en="Computer Networking Projects">
-        مشاريع شبكات الحاسب
-      </span>
+    <div class="container"
+         data-ar="مشاريع وتجارب عملية في شبكات الحاسب"
+         data-en="Computer Networking Projects & Practical Labs">
+      مشاريع وتجارب عملية في شبكات الحاسب
     </div>
   </footer>
 
@@ -355,21 +380,28 @@
 
     function setLanguage(language) {
       currentLanguage = language;
+
       document.documentElement.lang = language;
-      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir =
+        language === "ar" ? "rtl" : "ltr";
 
       document.querySelectorAll("[data-ar][data-en]").forEach(element => {
         element.textContent = element.dataset[language];
       });
 
-      languageToggle.textContent = language === "ar" ? "EN" : "عربي";
+      languageToggle.textContent =
+        language === "ar" ? "English" : "العربية";
+
+      languageToggle.setAttribute(
+        "aria-label",
+        language === "ar" ? "Switch to English" : "التبديل إلى العربية"
+      );
     }
 
     languageToggle.addEventListener("click", () => {
       setLanguage(currentLanguage === "ar" ? "en" : "ar");
     });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
     setLanguage("ar");
   </script>
 </body>
