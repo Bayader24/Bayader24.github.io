@@ -419,16 +419,36 @@
       *, *::before, *::after {
         transition-duration: 0.01ms !important;
       }
-    }
+   }
+    .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  direction: ltr;
+}
+
+.logo-star {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.logo-name {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #edf3ff;
+}
   </style>
 </head>
 
 <body>
   <header>
     <div class="container nav">
-      <a class="logo" href="#" aria-label="Bayader home">
-        Bayader<span>.</span>
-      </a>
+     <a class="logo" href="#" aria-label="Bayader home">
+  <img src="Star.png" alt="" class="logo-star">
+  <span class="logo-name">Bayader<span>.</span></span>
+</a>
 
       <div class="nav-right">
         <span class="nav-label" data-ar="مختبر الشبكات" data-en="NETWORK LAB">
