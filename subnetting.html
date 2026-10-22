@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Subnetting Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      font-family: Arial, sans-serif;
+      background: #0b1120;
+      color: #e5e7eb;
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .header { margin-bottom: 28px; }
+
+    .header p, .muted { color: #9ca3af; }
+
+    h1 { font-size: 30px; margin-bottom: 8px; }
+    h2 { font-size: 18px; }
+
+    .panel {
+      background: #151e30;
+      border: 1px solid #29364c;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input, select {
+      background: #0b1120;
+      color: white;
+      border: 1px solid #40506a;
+    }
+
+    button {
+      border: 0;
+      background: #38bdf8;
+      color: #082032;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    button:hover { background: #7dd3fc; }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result {
+      background: #0b1120;
+      border-radius: 10px;
+      padding: 15px;
+      min-width: 0;
+    }
+
+    .result span {
+      display: block;
+      color: #9ca3af;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .result strong {
+      display: block;
+      overflow-wrap: anywhere;
+      font-size: 16px;
+    }
+
+    .error { color: #fca5a5; }
+
+    .hidden { display: none; }
+
+    @media (max-width: 520px) {
+      .inputs, .results { grid-template-columns: 1fr; }
+      h1 { font-size: 25px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="header">
+      <p>NETWORKING TOOLS / IPv4</p>
+      <h1>Smart Subnetting Calculator</h1>
+      <p>Calculate network details and usable IP addresses instantly.</p>
+    </header>
+
+    <section class="panel">
+      <h2>Network Information</h2>
+
+      <div class="inputs">
+        <div>
+          <label for="ip">IPv4 Address</label>
+          <input id="ip" value="192.168.1.0"
+                 placeholder="192.168.1.0">
+        </div>
+
+        <div>
+          <label for="prefix">Prefix Length</label>
+          <select id="prefix">
+            <option value="8">/8</option>
+            <option value="16">/16</option>
+            <option value="24" selected>/24</option>
+            <option value="25">/25</option>
+            <option value="26">/26</option>
+            <option value="27">/27</option>
+            <option value="28">/28</option>
+            <option value="29">/29</option>
+            <option value="30">/30</option>
+            <option value="31">/31</option>
+            <option value="32">/32</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="calculate">Calculate Network</button>
+      <p id="error" class="error" role="alert"></p>
+    </section>
+
+    <section id="output" class="panel">
+      <h2>Calculation Results</h2>
+      <div class="results">
+        <div class="result">
+          <span>Network Address</span>
+          <strong id="network"></strong>
+        </div>
+        <div class="result">
+          <span>Subnet Mask</span>
+          <strong id="mask"></strong>
+        </div>
+        <div class="result">
+          <span>Broadcast Address</span>
+          <strong id="broadcast"></strong>
+        </div>
+        <div class="result">
+          <span>First Usable IP</span>
+          <strong id="first"></strong>
+        </div>
+        <div class="result">
+          <span>Last Usable IP</span>
+          <strong id="last"></strong>
+        </div>
+        <div class="result">
+          <span>Usable Hosts</span>
+          <strong id="hosts"></strong>
+        </div>
+        <div class="result">
+          <span>Total Addresses</span>
+          <strong id="total"></strong>
+        </div>
+        <div class="result">
+          <span>CIDR Prefix</span>
+          <strong id="cidr"></strong>
+        </div>
+      </div>
+    </section>
+
+    <p class="muted">
+      Educational IPv4 calculator. /31 and /32 use special
+      addressing rules; usable host counts follow common conventions.
+    </p>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function ipToNumber(ip) {
+      const parts = ip.trim().split(".");
+
+      if (parts.length !== 4 ||
+          parts.some(part => !/^\d{1,3}$/.test(part))) {
+        throw new Error("Enter a valid IPv4 address.");
+      }
+
+      const nums = parts.map(Number);
+
+      if (nums.some(n => n < 0 || n > 255)) {
+        throw new Error("Each IP octet must be between 0 and 255.");
+      }
+
+      return nums.reduce((value, octet) =>
+        value * 256 + octet, 0);
+    }
+
+    function numberToIP(number) {
+      return [
+        Math.floor(number / 16777216) % 256,
+        Math.floor(number / 65536) % 256,
+        Math.floor(number / 256) % 256,
+        number % 256
+      ].join(".");
+    }
+
+    function calculate() {
+      $("error").textContent = "";
+
+      try {
+        const ip = ipToNumber($("ip").value);
+        const prefix = Number($("prefix").value);
+
+        const size = 2 ** (32 - prefix);
+        const mask = prefix === 0
+          ? 0
+          : (0xFFFFFFFF * 2 ** (32 - prefix)) >>> 0;
+
+        const network = Math.floor(ip / size) * size;
+        const broadcast = network + size - 1;
+
+        let first = network;
+        let last = broadcast;
+        let hosts = Math.max(0, size - 2);
+
+        if (prefix === 31) {
+          hosts = 2;
+        } else if (prefix === 32) {
+          hosts = 1;
+        } else {
+          first = network + 1;
+          last = broadcast - 1;
+        }
+
+        $("network").textContent = numberToIP(network);
+        $("mask").textContent = numberToIP(mask);
+        $("broadcast").textContent = numberToIP(broadcast);
+        $("first").textContent = numberToIP(first);
+        $("last").textContent = numberToIP(last);
+        $("hosts").textContent = hosts.toLocaleString("en-US");
+        $("total").textContent = size.toLocaleString("en-US");
+        $("cidr").textContent = "/" + prefix;
+
+        $("output").classList.remove("hidden");
+      } catch (err) {
+        $("error").textContent = err.message;
+        $("output").classList.add("hidden");
+      }
+    }
+
+    $("calculate").addEventListener("click", calculate);
+    calculate();
+  </script>
+</body>
+</html>
